@@ -51,7 +51,27 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	Card playerCard2(playerCard[1], frontColor, backColor, margin + width + 10, top, width, height);
 	cards.push_back(playerCard2);
 
+	addButtons(gameController);
+	
 	draw();
+}
+void GameView::addButtons(GameController* gameController) {
+	int nrButtons = 4;
+	
+	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
+	int top = screen->h - BUTTON_HEIGHT - margin * 2 - BALANCE_HEIGHT;
+	char *buttonTexts[] = { "Split","Hit","Stand","Double"};
+	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
+
+	for (int i = 0; i < nrButtons; i++) {
+		int x = margin*(i + 1) + i*buttonWidth;
+		SDL_Rect rect = { x, top, buttonWidth, BUTTON_HEIGHT };
+
+		Button button(tags[i], i, buttonTexts[i], BUTTON_RED, rect);
+		button.setListener(gameController);
+		buttons.push_back(button);
+
+	}
 }
 void GameView::displayStartGameMode(GameController* gameController, int balance) {
 	
@@ -60,14 +80,14 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 	checkedButtonPosition = DEFAULT_CHECK_BUTTON_POSITION;
 
 	int nrButtons = 5;
-	int buttonHeight = 100;
+	
 	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
-	int top = screen->h - buttonHeight - margin*2 - BALANCE_HEIGHT;
+	int top = screen->h - BUTTON_HEIGHT - margin*2 - BALANCE_HEIGHT;
 	char *buttonTexts[] = { "1","5","25","100","Deal" };
 	
 	for (int i = 0; i < nrButtons; i++) {
 		int x = margin*(i + 1) + i*buttonWidth;
-		SDL_Rect rect = { x, top, buttonWidth, 100 };
+		SDL_Rect rect = { x, top, buttonWidth, BUTTON_HEIGHT };
 		Uint32 color;
 		int tag;
 		if (i < nrButtons - 1) {
@@ -84,10 +104,10 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 		Button button(tag, i, buttonTexts[i], color, rect);
 		button.setListener(gameController);
 		buttons.push_back(button);
-		
-		addBalanceText(balance);
 
 	}
+
+	addBalanceText(balance);
 }
 void GameView::addBalanceText(int balance) {
 	SDL_Rect bounds = { 0,screen->h - BALANCE_HEIGHT - margin,screen->w, BALANCE_HEIGHT };

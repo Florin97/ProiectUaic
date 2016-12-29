@@ -11,6 +11,7 @@
 #define BUTTON_GREEN_CHECKED SDL_MapRGB(screen->format, 205, 220, 57)
 #define DEFAULT_CHECK_BUTTON_POSITION 1
 #define BALANCE_HEIGHT 50
+#define BUTTON_HEIGHT 100
 
 class Button;
 class GameController;
@@ -28,6 +29,7 @@ private:
 
 	void clearShapes();
 	void addBalanceText(int balance);
+	void addButtons(GameController* gameController);
 public:
 	GameView(SDL_Window *window, SDL_Surface *surface);
 	~GameView();

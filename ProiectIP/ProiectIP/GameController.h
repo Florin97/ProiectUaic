@@ -3,6 +3,12 @@
 #define TAG_BET_PRICE 1
 #define TAG_DEAL 2
 
+#define TAG_SPLIT 3
+#define TAG_HIT 4
+#define TAG_STAND 5
+#define TAG_DOUBLE 6
+
+
 class GameView;
 
 class GameController
