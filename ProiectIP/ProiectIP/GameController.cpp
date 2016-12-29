@@ -4,15 +4,36 @@
 GameController::GameController(GameView *gameView)
 {
 	this->gameView = gameView;
-	void(*click)(int) = (this->onClickBetListener);
 
-	gameView->displayStartGameMode(click, click);
+	gameView->displayStartGameMode(this, balance);
 }
 
-void GameController::onClickBetListener(int buttonId) {
+void GameController::onClick(int tag, int buttonIndex) {
+	switch (tag)
+	{
+	case TAG_BET_PRICE:
+		onClickBetPrice(buttonIndex);
+		break;
+	case TAG_DEAL:
+		onClickDeal();
+		break;
+	default:
+		break;
+	}
 }
-void GameController::onClickDealListener(int buttonId) {
+
+void GameController::onClickBetPrice(int buttonIndex) {
+	currentBet = betValues[buttonIndex];
+	gameView->checkButton(buttonIndex);
 }
+void GameController::onClickDeal() {
+	balance -= currentBet;
+	char *dealerCards[] = {"J", "Q"};
+	char *playerCards[] = { "K", "A" };
+
+	gameView->displayGameInProgressMode(this, balance, currentBet,  dealerCards, playerCards);
+}
+
 
 GameController::~GameController()
 {

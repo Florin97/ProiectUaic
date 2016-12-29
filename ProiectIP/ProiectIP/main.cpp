@@ -40,6 +40,7 @@ int main(int argc, char* args[]) {
 	while (running) {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_MOUSEBUTTONUP) {
+				gameView.handleEvent(event);
 
 				cout << "event: click event" << event.type;
 				

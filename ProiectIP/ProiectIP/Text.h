@@ -7,7 +7,7 @@ private:
 	TTF_Font *font;
 	SDL_Surface *textSurface;
 public:
-	Text(const char* text, SDL_Rect bounds, SDL_Color color = { 255, 255,255, 255 });
+	Text(const char* text, SDL_Rect bounds, SDL_Color color = { 255, 255,255, 255 }, int fontSize = 40);
 	~Text();
 
 	void draw(SDL_Surface * screen);
