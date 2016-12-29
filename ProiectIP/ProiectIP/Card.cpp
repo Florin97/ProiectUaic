@@ -1,10 +1,15 @@
 #include "Card.h"
 
 
-Card::Card(Uint32 backgroundColor, int x, int y, int w, int h) {
-	image = SDL_CreateRGBSurface(0, w, h, 32, 0, 0, 0, 0);
+Card::Card(const char *cardText, Uint32 frontColor, Uint32 backColor, int x, int y, int w, int h, bool isVisible) {
+	this->frontColor = frontColor;
+	this->backColor = backColor;
+	this->width = w;
+	this->height = h;
+	this->isVisible = isVisible;
 
-	SDL_FillRect(image, NULL, backgroundColor);
+	createCardImage();
+	
 
 	rect = image->clip_rect;
 
@@ -12,12 +17,33 @@ Card::Card(Uint32 backgroundColor, int x, int y, int w, int h) {
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
-	text = new Text("A", rect);
+
+	SDL_Color textColor = { 0, 0,0, 255 };
+
+	text = new Text(cardText, rect, textColor);
+}
+void Card::setVisible(bool isVisible) {
+	this->isVisible = isVisible;
+	createCardImage();
 }
 
+void Card::createCardImage() {
+	image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+
+	if(isVisible){
+		SDL_FillRect(image, NULL, frontColor);
+	}
+	else {
+		SDL_FillRect(image, NULL, backColor);
+	}
+	
+	
+}
 void Card::draw(SDL_Surface *screen) {
 	SDL_BlitSurface(image, NULL, screen, &rect);
-	text->draw(screen);
+	if (isVisible) {
+		text->draw(screen);
+	}
 }
 void Card::destroy() {
 

@@ -1,6 +1,6 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
-#include "Card.h"
+#include "Game.h"
 #include <iostream>
 using namespace std;
 
@@ -23,11 +23,9 @@ int main(int argc, char* args[]) {
 	}
 	SDL_Surface* screen = SDL_GetWindowSurface(window);
 	if (screen == NULL) cout << "errpr";
-
-	Uint32 backgroundColor = SDL_MapRGB(screen->format, 0, 0, 255);
-	Card card(backgroundColor, 0, 0);
-
-	card.draw(screen);
+	
+	Game game(window, screen);
+	game.draw();
 
 	//Text text("A");
 	//text.draw(screen);
@@ -52,6 +50,8 @@ int main(int argc, char* args[]) {
 			}
 		}
 	}
+	game.destroy();
+
 	SDL_DestroyWindow(window);
 
 	SDL_Quit();
