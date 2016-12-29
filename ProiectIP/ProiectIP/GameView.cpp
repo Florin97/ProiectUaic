@@ -23,7 +23,7 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	clearShapes();
 	
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
-	Uint32 backColor = SDL_MapRGB(screen->format, 230, 74, 25);
+	Uint32 backColor = BUTTON_BROWN;
 
 	int width = screen->w / 7;
 	int height = screen->h / 4;
@@ -60,14 +60,14 @@ void GameView::addButtons(GameController* gameController) {
 	
 	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
 	int top = screen->h - BUTTON_HEIGHT - margin * 2 - BALANCE_HEIGHT;
-	char *buttonTexts[] = { "Split","Hit","Stand","Double"};
+	char *buttonTexts[] = { "SPLIT","HIT","STAND","DOUBLE"};
 	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
 
 	for (int i = 0; i < nrButtons; i++) {
 		int x = margin*(i + 1) + i*buttonWidth;
 		SDL_Rect rect = { x, top, buttonWidth, BUTTON_HEIGHT };
 
-		Button button(tags[i], i, buttonTexts[i], BUTTON_BLUE, rect, 30);
+		Button button(tags[i], i, buttonTexts[i], BUTTON_DEFAULT, rect, 30);
 		button.setListener(gameController);
 		buttons.push_back(button);
 
@@ -83,7 +83,7 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 	
 	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
 	int top = screen->h - BUTTON_HEIGHT - margin*2 - BALANCE_HEIGHT;
-	char *buttonTexts[] = { "1","5","25","100","Deal" };
+	char *buttonTexts[] = { "1","5","25","100","DEAL" };
 	
 	for (int i = 0; i < nrButtons; i++) {
 		int x = margin*(i + 1) + i*buttonWidth;
@@ -108,6 +108,12 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 	}
 
 	addBalanceText(balance);
+
+	SDL_Rect bounds = { 0,0,screen->w, top};
+	SDL_Color white = { 255, 255,255, 255 };
+
+	Text text("BLACKJACK", bounds, white, 100, "KumarOne-Regular.ttf");
+	texts.push_back(text);
 }
 void GameView::addBalanceText(int balance) {
 	SDL_Rect bounds = { 0,screen->h - BALANCE_HEIGHT - margin,screen->w, BALANCE_HEIGHT };

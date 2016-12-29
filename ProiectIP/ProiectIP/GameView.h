@@ -9,7 +9,8 @@
 #define BUTTON_GREEN SDL_MapRGB(screen->format, 104, 159, 56)
 #define BUTTON_RED SDL_MapRGB(screen->format, 230, 74, 25)
 #define BUTTON_GREEN_CHECKED SDL_MapRGB(screen->format, 205, 220, 57)
-#define BUTTON_BLUE SDL_MapRGB(screen->format, 121, 85, 72)
+#define BUTTON_BROWN SDL_MapRGB(screen->format, 121, 85, 72)
+#define BUTTON_DEFAULT SDL_MapRGB(screen->format, 97, 97, 97)
 #define DEFAULT_CHECK_BUTTON_POSITION 1
 #define BALANCE_HEIGHT 50
 #define BUTTON_HEIGHT 100
