@@ -2,7 +2,7 @@
 
 
 
-Button::Button(int tag, int index, const char*buttonText, Uint32 backgroundColor, SDL_Rect rect)
+Button::Button(int tag, int index, const char*buttonText, Uint32 backgroundColor, SDL_Rect rect, int textSize)
 {	
 	this->tag = tag;
 	this->index = index;
@@ -12,7 +12,9 @@ Button::Button(int tag, int index, const char*buttonText, Uint32 backgroundColor
 	this->image = SDL_CreateRGBSurface(0, rect.w, rect.h, 32, 0, 0, 0, 0);
 	SDL_FillRect(image, NULL, backgroundColor);
 
-	text = new Text(buttonText, rect);
+	SDL_Color whiteColor = { 255, 255,255, 255 };
+
+	text = new Text(buttonText, rect, whiteColor, textSize);
 }
 void Button::draw(SDL_Surface *screen) {
 	SDL_BlitSurface(image, NULL, screen, &rect);

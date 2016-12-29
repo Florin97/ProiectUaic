@@ -18,7 +18,7 @@ private:
 	int index;
 	int tag;
 public:
-	Button(int tag, int index, const char*text, Uint32 backgroundColor, SDL_Rect rect);
+	Button(int tag, int index, const char*text, Uint32 backgroundColor, SDL_Rect rect, int textSize = 40);
 	~Button();
 
 	bool handleEvent(SDL_Event event);

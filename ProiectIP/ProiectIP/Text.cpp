@@ -1,8 +1,8 @@
 #include "Text.h"
 
 
-Text::Text(const char* text, SDL_Rect bounds, SDL_Color color, int fontSize) {
-	font = TTF_OpenFont("Roboto-Black.ttf", fontSize);
+Text::Text(const char* text, SDL_Rect bounds, SDL_Color color, int fontSize, char* fontType) {
+	font = TTF_OpenFont(fontType, fontSize);
 
 	textSurface = TTF_RenderText_Solid(font, text, color);
 	rect.x = (bounds.w - textSurface->w) / 2 + bounds.x;

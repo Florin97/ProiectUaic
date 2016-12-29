@@ -67,7 +67,7 @@ void GameView::addButtons(GameController* gameController) {
 		int x = margin*(i + 1) + i*buttonWidth;
 		SDL_Rect rect = { x, top, buttonWidth, BUTTON_HEIGHT };
 
-		Button button(tags[i], i, buttonTexts[i], BUTTON_RED, rect);
+		Button button(tags[i], i, buttonTexts[i], BUTTON_BLUE, rect, 30);
 		button.setListener(gameController);
 		buttons.push_back(button);
 
