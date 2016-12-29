@@ -16,7 +16,7 @@ int main(int argc, char* args[]) {
 
 
 	SDL_Window *window;
-	window = SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Blackjack", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
 
 	if (window == NULL) {
 		cout << "No window" << SDL_GetError();
@@ -30,7 +30,7 @@ int main(int argc, char* args[]) {
 	//Text text("A");
 	//text.draw(screen);
 
-	SDL_UpdateWindowSurface(window);
+	//SDL_UpdateWindowSurface(window);
 
 	SDL_Event event;
 	bool running = true;
@@ -38,10 +38,11 @@ int main(int argc, char* args[]) {
 	while (running) {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_MOUSEBUTTONUP) {
+
 				cout << "event: click event" << event.type;
 				
-				SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-				SDL_UpdateWindowSurface(window);
+				//SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+			//	SDL_UpdateWindowSurface(window);
 			}
 
 			if (event.type == SDL_QUIT) {
