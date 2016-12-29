@@ -17,6 +17,18 @@ void GameController::onClick(int tag, int buttonIndex) {
 	case TAG_DEAL:
 		onClickDeal();
 		break;
+	case TAG_SPLIT:
+		onClickSplit();
+		break;
+	case TAG_HIT:
+		onClickHit();
+		break;
+	case TAG_STAND:
+		onClickStand();
+		break;
+	case TAG_DOUBLE:
+		onClickDouble();
+		break;
 	default:
 		break;
 	}
@@ -33,7 +45,17 @@ void GameController::onClickDeal() {
 
 	gameView->displayGameInProgressMode(this, balance, currentBet,  dealerCards, playerCards);
 }
+void GameController::onClickSplit() {
 
+}
+void GameController::onClickHit() {
+}
+void GameController::onClickStand() {
+
+}
+void GameController::onClickDouble() {
+
+}
 
 GameController::~GameController()
 {

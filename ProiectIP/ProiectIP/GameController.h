@@ -28,5 +28,9 @@ public:
 	//click listeners
 	void onClickBetPrice(int index);
 	void onClickDeal();
+	void onClickSplit();
+	void onClickHit();
+	void onClickStand();
+	void onClickDouble();
 };
 
