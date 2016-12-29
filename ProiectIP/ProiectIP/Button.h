@@ -9,9 +9,11 @@ private:
 	Text *text;
 	SDL_Rect rect;
 	Uint32 backgroundColor;
+	void(*clickListener)(int);
+	int index;
 
 public:
-	Button(const char*text, Uint32 backgroundColor, SDL_Rect rect);
+	Button(int index, const char*text, Uint32 backgroundColor, SDL_Rect rect);
 	~Button();
 
 	bool handleEvent(SDL_Event event);

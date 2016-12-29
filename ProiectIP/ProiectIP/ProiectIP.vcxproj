@@ -119,7 +119,8 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameView.cpp" />
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -127,7 +128,8 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Card.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameView.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Text.h" />
   </ItemGroup>

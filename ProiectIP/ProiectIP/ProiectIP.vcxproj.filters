@@ -27,10 +27,13 @@
     <ClCompile Include="Card.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="GameController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +47,13 @@
     <ClInclude Include="Card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="GameController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

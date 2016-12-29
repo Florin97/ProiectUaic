@@ -1,6 +1,7 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
-#include "Game.h"
+#include "GameView.h"
+#include "GameController.h"
 #include <iostream>
 using namespace std;
 
@@ -24,8 +25,9 @@ int main(int argc, char* args[]) {
 	SDL_Surface* screen = SDL_GetWindowSurface(window);
 	if (screen == NULL) cout << "errpr";
 	
-	Game game(window, screen);
-	game.draw();
+	GameView gameView(window, screen);
+	new GameController(&gameView);
+	gameView.draw();
 
 	//Text text("A");
 	//text.draw(screen);
@@ -51,7 +53,7 @@ int main(int argc, char* args[]) {
 			}
 		}
 	}
-	game.destroy();
+	gameView.destroy();
 
 	SDL_DestroyWindow(window);
 

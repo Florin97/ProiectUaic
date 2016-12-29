@@ -2,8 +2,9 @@
 
 
 
-Button::Button(const char*buttonText, Uint32 backgroundColor, SDL_Rect rect)
+Button::Button(int index, const char*buttonText, Uint32 backgroundColor, SDL_Rect rect)
 {
+	this->index = index;
 	this->backgroundColor = backgroundColor;
 	this->rect = rect;
 
@@ -18,7 +19,15 @@ void Button::draw(SDL_Surface *screen) {
 	text->draw(screen);
 	
 }
-bool handleEvent(SDL_Event event) {
+bool Button::handleEvent(SDL_Event event) {
+	int x = event.button.x;
+	int y = event.button.y;
+	if (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h) {
+		if (clickListener != NULL) {
+			clickListener(index);
+		}
+		return true;
+	}
 	return false;
 }
 void Button::destroy() {
