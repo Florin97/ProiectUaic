@@ -2,9 +2,11 @@
 #define GAME_VIEW_H
 #include "SDL.h"
 #include <vector>
+#include "CardModel.h"
 #include "Shape.h"
 #include "Card.h"
 #include "Button.h"
+#include "Hand.h"
 
 #define BUTTON_GREEN SDL_MapRGB(screen->format, 104, 159, 56)
 #define BUTTON_RED SDL_MapRGB(screen->format, 230, 74, 25)
@@ -32,6 +34,7 @@ private:
 	void clearShapes();
 	void addBalanceText(int balance);
 	void addButtons(GameController* gameController);
+	void addHandValueText(int top, int height, int handValue);
 public:
 	GameView(SDL_Window *window, SDL_Surface *surface);
 	~GameView();
@@ -39,7 +42,7 @@ public:
 	void draw();
 	void destroy();
 	void displayStartGameMode(GameController* gameController, int balance);
-	void displayGameInProgressMode(GameController* gameController, int balance, int currentBet, char *dealerCard[], char *playerCard[]);
+	void displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand);
 	void handleEvent(SDL_Event event);
 	void checkButton(int buttonIndex);
 };

@@ -5,7 +5,7 @@ GameView::GameView(SDL_Window *window, SDL_Surface *surface)
 	this->window = window;
 	this->screen = surface;
 }
-void GameView::displayGameInProgressMode(GameController* gameController, int balance, int currentBet, char *dealerCard[], char *playerCard[]) {
+void GameView::displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand) {
 	clearShapes();
 	
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
@@ -14,11 +14,16 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	int width = screen->w / 7;
 	int height = screen->h / 4;
 
-	Card card(dealerCard[0], frontColor, backColor, margin, margin, width, height);
-	cards.push_back(card);
+	int left = margin;
+	vector<CardModel> dealerCards = dealerHand.getCards();
+	for (vector<CardModel>::const_iterator it = dealerCards.begin(); it != dealerCards.end(); ++it) {
+		CardModel cardModel = *it;
+		Card card(cardModel.getCard(), frontColor, backColor, left, margin, width, height, cardModel.isCardVisible());
+		cards.push_back(card);
 
-	Card card2(dealerCard[1], frontColor, backColor, margin + width + 10, margin, width, height, false);
-	cards.push_back(card2);
+		left += width + margin;
+	}
+
 
 	addBalanceText(balance);
 
@@ -31,15 +36,31 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	texts.push_back(text);
 
 	top += margin + BALANCE_HEIGHT;
-	Card playerCard1(playerCard[0], frontColor, backColor, margin, top, width, height);
-	cards.push_back(playerCard1);
 
-	Card playerCard2(playerCard[1], frontColor, backColor, margin + width + 10, top, width, height);
-	cards.push_back(playerCard2);
+	left = margin;
+	vector<CardModel> playerCards = playerHand.getCards();
+	for (vector<CardModel>::const_iterator it = playerCards.begin(); it != playerCards.end(); ++it) {
+		CardModel cardModel = *it;
+
+		Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, width, height);
+		cards.push_back(playerCard1);
+
+		left += width + margin;
+	}
+
+	addHandValueText(top, height, playerHand.getHandValue());
 
 	addButtons(gameController);
 	
 	draw();
+}
+void GameView::addHandValueText(int top, int height, int handValue) {
+	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };
+	char numstr[30]; // enough to hold all numbers up to 64-bits
+	sprintf_s(numstr, "Hand value: %d", handValue);
+	SDL_Color white = { 255, 255,255, 255 };
+	Text handValueText(numstr, handValueBounds, white, 25);
+	texts.push_back(handValueText);
 }
 void GameView::addButtons(GameController* gameController) {
 	int nrButtons = 4;

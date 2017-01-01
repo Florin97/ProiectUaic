@@ -40,10 +40,22 @@ void GameController::onClickBetPrice(int buttonIndex) {
 }
 void GameController::onClickDeal() {
 	balance -= currentBet;
-	char *dealerCards[] = {"J", "Q"};
-	char *playerCards[] = { "K", "A" };
+	
+	this->deck = new Deck();
+	
+	Hand dealerHand;
+	Hand playerHand;
 
-	gameView->displayGameInProgressMode(this, balance, currentBet,  dealerCards, playerCards);
+	CardModel firstCard = this->deck->drawCard();
+	firstCard.setCardNotVisible();
+
+	dealerHand.addCard(firstCard);
+	dealerHand.addCard(this->deck->drawCard());
+
+	playerHand.addCard(this->deck->drawCard());
+	playerHand.addCard(this->deck->drawCard());
+
+	gameView->displayGameInProgressMode(this, balance, currentBet, dealerHand, playerHand);
 }
 void GameController::onClickSplit() {
 
