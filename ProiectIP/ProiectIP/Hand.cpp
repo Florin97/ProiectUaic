@@ -10,6 +10,11 @@ Hand::Hand()
 	//CardModel card2("Q", true, 10);
 	//this->cards.push_back(card2);
 }
+void Hand::makeAllCardsVisible() {
+	for (int i = 0; i < cards.size(); i++) {
+		cards.at(i).setCardVisible();
+	}
+}
 int Hand::getHandValue() {
 	int handValue = 0;
 	bool handContainsAce = false;

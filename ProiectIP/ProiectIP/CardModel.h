@@ -9,6 +9,7 @@ public:
 	int getCardValue();
 	bool isAce();
 	bool isCardVisible();
+	void setCardVisible();
 	void setCardNotVisible();
 	char* getCard();
 	CardModel(char* card, bool isVisible, int cardValue);

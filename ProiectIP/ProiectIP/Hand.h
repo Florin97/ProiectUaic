@@ -12,6 +12,7 @@ public:
 	vector<CardModel> getCards();
 	void addCard(CardModel cardModel);
 	int getHandValue();
+	void makeAllCardsVisible();
 	Hand();
 	~Hand();
 };

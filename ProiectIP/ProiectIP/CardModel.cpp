@@ -15,6 +15,9 @@ int CardModel::getCardValue() {
 void CardModel::setCardNotVisible() {
 	this->isVisible = false;
 }
+void CardModel::setCardVisible() {
+	this->isVisible = true;
+}
 bool CardModel::isCardVisible() {
 	return isVisible;
 }

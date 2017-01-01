@@ -11,8 +11,8 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
 	Uint32 backColor = BUTTON_BROWN;
 
-	int width = screen->w / 7;
-	int height = screen->h / 4;
+	int width = screen->w / 12;
+	int height = screen->h / 5;
 
 	int left = margin;
 	vector<CardModel> dealerCards = dealerHand.getCards();

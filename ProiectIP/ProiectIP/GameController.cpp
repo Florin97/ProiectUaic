@@ -42,9 +42,6 @@ void GameController::onClickDeal() {
 	balance -= currentBet;
 	
 	this->deck = new Deck();
-	
-	Hand dealerHand;
-	Hand playerHand;
 
 	CardModel firstCard = this->deck->drawCard();
 	firstCard.setCardNotVisible();
@@ -55,15 +52,34 @@ void GameController::onClickDeal() {
 	playerHand.addCard(this->deck->drawCard());
 	playerHand.addCard(this->deck->drawCard());
 
+	redrawGameInProgress();
+}
+void GameController::redrawGameInProgress() {
 	gameView->displayGameInProgressMode(this, balance, currentBet, dealerHand, playerHand);
+}
+void GameController::executeDealerALgorithm() {
+	dealerHand.makeAllCardsVisible();
+	redrawGameInProgress();
+
+	while (dealerHand.getHandValue() < 17) {
+		
+		SDL_Delay(1000);
+		dealerHand.addCard(this->deck->drawCard());
+		redrawGameInProgress();
+
+	}
+
+
 }
 void GameController::onClickSplit() {
 
 }
 void GameController::onClickHit() {
+	playerHand.addCard(this->deck->drawCard());
+	redrawGameInProgress();
 }
 void GameController::onClickStand() {
-
+	executeDealerALgorithm();
 }
 void GameController::onClickDouble() {
 

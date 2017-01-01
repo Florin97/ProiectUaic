@@ -3,6 +3,8 @@
 #include "GameView.h"
 #include "GameController.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 using namespace std;
 
 
@@ -17,7 +19,7 @@ int main(int argc, char* args[]) {
 
 
 	SDL_Window *window;
-	window = SDL_CreateWindow("Blackjack", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Blackjack", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 680, SDL_WINDOW_SHOWN);
 
 	if (window == NULL) {
 		cout << "No window" << SDL_GetError();

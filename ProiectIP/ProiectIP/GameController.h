@@ -21,13 +21,15 @@ private:
 	int betValues[4] = {1, 5, 25, 100};
 	int currentBet = 5;
 	Deck *deck;
-
+	Hand dealerHand;
+	Hand playerHand;
 public:
 	GameController(GameView *gameView);
 	~GameController();
 
+	void redrawGameInProgress();
 	void onClick(int tag, int buttonId);
-
+	void executeDealerALgorithm();
 	//click listeners
 	void onClickBetPrice(int index);
 	void onClickDeal();
