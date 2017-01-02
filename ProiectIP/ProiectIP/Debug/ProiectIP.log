@@ -1,4 +1,15 @@
-﻿  Hand.cpp
+﻿  Text.cpp
+  Shape.cpp
+  main.cpp
+  Hand.cpp
 d:\proiect_ip\proiectip\proiectip\hand.cpp(14): warning C4018: '<': signed/unsigned mismatch
+  GameController.cpp
+  GameView.cpp
+  Deck.cpp
+d:\proiect_ip\proiectip\proiectip\deck.cpp(8): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  CardModel.cpp
+  Card.cpp
+  Button.cpp
+  Generating Code...
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.pdb (Partial PDB)

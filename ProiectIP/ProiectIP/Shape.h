@@ -7,9 +7,7 @@
 using namespace std;
 
 class Shape {
-public:
-	virtual void destroy();
-	virtual void draw(SDL_Surface *screen);
+
 };
 
 #endif
