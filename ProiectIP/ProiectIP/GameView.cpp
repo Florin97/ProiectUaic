@@ -50,6 +50,8 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 
 	addHandValueText(top, height, playerHand.getHandValue());
 
+	
+
 	addButtons(gameController);
 	
 	draw();
@@ -63,18 +65,21 @@ void GameView::addHandValueText(int top, int height, int handValue) {
 	texts.push_back(handValueText);
 }
 void GameView::addButtons(GameController* gameController) {
-	int nrButtons = 4;
-	
-	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
-	int top = screen->h - BUTTON_HEIGHT - margin * 2 - BALANCE_HEIGHT;
-	char *buttonTexts[] = { "SPLIT","HIT","STAND","DOUBLE"};
-	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
 
-	for (int i = 0; i < nrButtons; i++) {
-		int x = margin*(i + 1) + i*buttonWidth;
+	vector<ButtonModel> buttonModels = gameController->getButtons();
+	
+	int buttonWidth = (screen->w - (MAX_BUTTONS + 1)*margin) / MAX_BUTTONS;
+	int top = screen->h - BUTTON_HEIGHT - margin * 2 - BALANCE_HEIGHT;
+
+	int nrOfNotDisplayedButtons = MAX_BUTTONS - buttonModels.size();
+	int left = (nrOfNotDisplayedButtons*(buttonWidth+margin))/2;
+
+	for (int i = 0; i < buttonModels.size(); i++) {
+		int x = left+margin*(i + 1) + i*buttonWidth;
 		SDL_Rect rect = { x, top, buttonWidth, BUTTON_HEIGHT };
 
-		Button button(tags[i], i, buttonTexts[i], BUTTON_DEFAULT, rect, 30);
+		ButtonModel buttonModel = buttonModels.at(i);
+		Button button(buttonModel.getTag(), i, buttonModel.getLabel(), BUTTON_DEFAULT, rect, 30);
 		button.setListener(gameController);
 		buttons.push_back(button);
 

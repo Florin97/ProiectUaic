@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonModel.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardModel.cpp" />
     <ClCompile Include="Deck.cpp" />
@@ -130,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonModel.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardModel.h" />
     <ClInclude Include="Deck.h" />

@@ -2,6 +2,8 @@
 #include "GameView.h"
 #include "Hand.h"
 #include "Deck.h"
+#include "ButtonModel.h"
+
 #define TAG_BET_PRICE 1
 #define TAG_DEAL 2
 
@@ -10,6 +12,8 @@
 #define TAG_STAND 5
 #define TAG_DOUBLE 6
 
+
+#define MAX_BUTTONS 5
 
 class GameView;
 
@@ -37,5 +41,6 @@ public:
 	void onClickHit();
 	void onClickStand();
 	void onClickDouble();
+	vector<ButtonModel> getButtons();
 };
 

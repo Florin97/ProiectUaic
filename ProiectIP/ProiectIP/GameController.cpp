@@ -57,6 +57,17 @@ void GameController::onClickDeal() {
 void GameController::redrawGameInProgress() {
 	gameView->displayGameInProgressMode(this, balance, currentBet, dealerHand, playerHand);
 }
+vector<ButtonModel> GameController::getButtons() {
+	vector<ButtonModel> buttons;
+	//TODO add buttons
+	char *buttonTexts[] = { "SPLIT","HIT","STAND","DOUBLE" };
+	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
+	for (int i = 0; i < 4; i++) {
+		ButtonModel button(buttonTexts[i], tags[i]);
+		buttons.push_back(button);
+	}
+	return buttons;
+}
 void GameController::executeDealerALgorithm() {
 	dealerHand.makeAllCardsVisible();
 	redrawGameInProgress();
