@@ -29,6 +29,9 @@ void GameController::onClick(int tag, int buttonIndex) {
 	case TAG_DOUBLE:
 		onClickDouble();
 		break;
+	case TAG_START_NEW_GAME:
+		onClickStartNewGame();
+		break;
 	default:
 		break;
 	}
@@ -39,6 +42,8 @@ void GameController::onClickBetPrice(int buttonIndex) {
 	gameView->checkButton(buttonIndex);
 }
 void GameController::onClickDeal() {
+	mode = MODE_PLAYER_TURN;
+
 	balance -= currentBet;
 	
 	this->deck = new Deck();
@@ -59,6 +64,17 @@ void GameController::redrawGameInProgress() {
 }
 vector<ButtonModel> GameController::getButtons() {
 	vector<ButtonModel> buttons;
+
+	if (mode == MODE_DEALER_TURN) {
+		return buttons;
+	}
+
+	if (mode == MODE_START_NEW_GAME) {
+		ButtonModel startNewGame("START", TAG_START_NEW_GAME);
+		buttons.push_back(startNewGame);
+		return buttons;
+	}
+
 	//TODO add buttons
 	char *buttonTexts[] = { "SPLIT","HIT","STAND","DOUBLE" };
 	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
@@ -69,6 +85,8 @@ vector<ButtonModel> GameController::getButtons() {
 	return buttons;
 }
 void GameController::executeDealerALgorithm() {
+	mode = MODE_DEALER_TURN;
+
 	dealerHand.makeAllCardsVisible();
 	redrawGameInProgress();
 
@@ -77,17 +95,34 @@ void GameController::executeDealerALgorithm() {
 		SDL_Delay(1000);
 		dealerHand.addCard(this->deck->drawCard());
 		redrawGameInProgress();
-
 	}
+	mode = MODE_START_NEW_GAME;
+	redrawGameInProgress();
 
+}
+void GameController::switchToChooseBet() {
+	mode = MODE_CHOOSE_BET;
+	dealerHand.clearHand();
+	playerHand.clearHand();
 
+	gameView->displayStartGameMode(this, balance);
 }
 void GameController::onClickSplit() {
 
 }
 void GameController::onClickHit() {
 	playerHand.addCard(this->deck->drawCard());
+
 	redrawGameInProgress();
+
+	if (playerHand.getHandValue() > 21) {
+		mode = MODE_START_NEW_GAME;
+		redrawGameInProgress();
+	}
+	
+}
+void GameController::onClickStartNewGame() {
+	switchToChooseBet();
 }
 void GameController::onClickStand() {
 	executeDealerALgorithm();

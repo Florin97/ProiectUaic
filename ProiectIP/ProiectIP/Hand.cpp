@@ -49,7 +49,10 @@ void Hand::addCard(CardModel cardModel) {
 vector<CardModel> Hand::getCards() {
 	return this->cards;
 }
-
+void Hand::clearHand() {
+	handValue = 0;
+	cards.clear();
+}
 Hand::~Hand()
 {
 }

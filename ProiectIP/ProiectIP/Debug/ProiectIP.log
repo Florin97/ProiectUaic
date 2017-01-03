@@ -1,5 +1,11 @@
 ﻿  Hand.cpp
 d:\proiect_ip\proiectip\proiectip\hand.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  GameController.cpp
+  Generating Code...
 d:\proiect_ip\proiectip\proiectip\hand.cpp(18): warning C4172: returning address of local variable or temporary: numstr
+  Skipping... (no relevant changes detected)
+  main.cpp
+  GameView.cpp
+  Button.cpp
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.pdb (Partial PDB)

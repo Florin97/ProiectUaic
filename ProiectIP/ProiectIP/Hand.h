@@ -16,6 +16,7 @@ public:
 	int getHandValue();
 	char* getHandText();
 	void makeAllCardsVisible();
+	void clearHand();
 	Hand();
 	~Hand();
 };
