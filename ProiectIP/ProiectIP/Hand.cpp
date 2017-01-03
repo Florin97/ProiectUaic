@@ -4,11 +4,18 @@
 
 Hand::Hand()
 {
-	//CardModel card1("A", false, 11);
-	//this->cards.push_back(card1);
 
-	//CardModel card2("Q", true, 10);
-	//this->cards.push_back(card2);
+}
+char* Hand::getHandText() {
+	int handValue = getHandValue();
+	char numstr[30]; // enough to hold all numbers up to 64-bits
+	if (handValue <= 21) {
+		sprintf_s(numstr, "Hand value: %d", handValue);
+	}
+	else {
+		sprintf_s(numstr, "Busted: %d", handValue);
+	}
+	return numstr;
 }
 void Hand::makeAllCardsVisible() {
 	for (int i = 0; i < cards.size(); i++) {

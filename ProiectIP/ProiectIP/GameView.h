@@ -34,7 +34,7 @@ private:
 	void clearShapes();
 	void addBalanceText(int balance);
 	void addButtons(GameController* gameController);
-	void addHandValueText(int top, int height, int handValue);
+	void addHandValueText(int top, int height, Hand hand);
 public:
 	GameView(SDL_Window *window, SDL_Surface *surface);
 	~GameView();

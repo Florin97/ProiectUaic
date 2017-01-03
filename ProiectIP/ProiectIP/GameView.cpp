@@ -47,21 +47,28 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 
 		left += width + margin;
 	}
-
-	addHandValueText(top, height, playerHand.getHandValue());
-
 	
+
+	addHandValueText(top, height,playerHand);
 
 	addButtons(gameController);
 	
 	draw();
 }
-void GameView::addHandValueText(int top, int height, int handValue) {
+void GameView::addHandValueText(int top, int height, Hand hand) {
+	int handValue = hand.getHandValue();
+	char handText[30]; // enough to hold all numbers up to 64-bits
+	if (handValue <= 21) {
+		sprintf_s(handText, "Hand value: %d", handValue);
+	}
+	else {
+		sprintf_s(handText, "Busted: %d", handValue);
+	}
+
 	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };
-	char numstr[30]; // enough to hold all numbers up to 64-bits
-	sprintf_s(numstr, "Hand value: %d", handValue);
+	
 	SDL_Color white = { 255, 255,255, 255 };
-	Text handValueText(numstr, handValueBounds, white, 25);
+	Text handValueText(handText, handValueBounds, white, 25);
 	texts.push_back(handValueText);
 }
 void GameView::addButtons(GameController* gameController) {
