@@ -133,6 +133,8 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 
 	Text text("BLACKJACK", bounds, white, 100, "KumarOne-Regular.ttf");
 	texts.push_back(text);
+
+	draw();
 }
 void GameView::addBalanceText(int balance) {
 	SDL_Rect bounds = { 0,screen->h - BALANCE_HEIGHT - margin,screen->w, BALANCE_HEIGHT };
@@ -141,6 +143,7 @@ void GameView::addBalanceText(int balance) {
 	sprintf_s(numstr, "Balance:%d", balance);
 	Text text(numstr, bounds, white, 25);
 	texts.push_back(text);
+
 }
 void GameView::checkButton(int buttonIndex) {
 	buttons.at(checkedButtonPosition).setBackgroundColor(BUTTON_GREEN);
