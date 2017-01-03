@@ -22,26 +22,29 @@ void Hand::makeAllCardsVisible() {
 		cards.at(i).setCardVisible();
 	}
 }
-int Hand::getHandValue() {
+void Hand::computeHandValue() {
 	int handValue = 0;
-	bool handContainsAce = false;
+	int nrOfAces = 0;
 
-	cout << "computing ";
 	for (vector<CardModel>::const_iterator it = cards.begin(); it != cards.end(); ++it) {
 		CardModel cardModel = *it;
 		if (cardModel.isAce()) {
-			handContainsAce = true;
+			nrOfAces++;
 		}
 		handValue += cardModel.getCardValue();
 	}
-	if (handContainsAce && handValue > 21) {
+	while (nrOfAces > 0 && handValue > 21) {
 		handValue -= 10;
+		nrOfAces--;
 	}
-	cout << "random: "+handValue;
+	this->handValue = handValue;
+}
+int Hand::getHandValue() {
 	return handValue;
 }
 void Hand::addCard(CardModel cardModel) {
 	this->cards.push_back(cardModel);
+	computeHandValue();
 }
 vector<CardModel> Hand::getCards() {
 	return this->cards;

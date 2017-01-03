@@ -8,6 +8,8 @@ class Hand
 {
 private:
 	vector<CardModel> cards;
+	int handValue;
+	void computeHandValue();
 public:
 	vector<CardModel> getCards();
 	void addCard(CardModel cardModel);
