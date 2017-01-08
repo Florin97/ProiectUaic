@@ -7,7 +7,9 @@ GameController::GameController(GameView *gameView)
 
 	gameView->displayStartGameMode(this, balance);
 }
-
+bool GameController::shouldShowGameResult() {
+	return mode == MODE_START_NEW_GAME;
+}
 void GameController::onClick(int tag, int buttonIndex) {
 	switch (tag)
 	{
@@ -42,6 +44,9 @@ void GameController::onClickBetPrice(int buttonIndex) {
 	gameView->checkButton(buttonIndex);
 }
 void GameController::onClickDeal() {
+	if (balance - currentBet < 0) {
+		return;
+	}
 	mode = MODE_PLAYER_TURN;
 
 	balance -= currentBet;
@@ -96,6 +101,15 @@ void GameController::executeDealerALgorithm() {
 		dealerHand.addCard(this->deck->drawCard());
 		redrawGameInProgress();
 	}
+	playerHand.setStatusFromDealerHand(dealerHand);
+
+	if (playerHand.getHandStatus() == HAND_WON) {
+		balance += this->currentBet * 2;
+	}
+	else if (playerHand.getHandStatus() == HAND_PUSH) {
+		balance += this->currentBet;
+	}
+
 	mode = MODE_START_NEW_GAME;
 	redrawGameInProgress();
 

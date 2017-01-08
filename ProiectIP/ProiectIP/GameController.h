@@ -41,6 +41,7 @@ public:
 	void onClick(int tag, int buttonId);
 	void executeDealerALgorithm();
 	void switchToChooseBet();
+	bool shouldShowGameResult();
 
 	//click listeners
 	void onClickBetPrice(int index);

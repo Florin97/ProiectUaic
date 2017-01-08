@@ -27,13 +27,7 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 
 	addBalanceText(balance);
 
-	int top = margin * 2 + height;
-	SDL_Rect bounds = { 0,top,screen->w, BALANCE_HEIGHT };
-	SDL_Color white = { 255, 255,255, 255 };
-	char numstr[21]; // enough to hold all numbers up to 64-bits
-	sprintf_s(numstr, "Bet: %d", currentBet);
-	Text text(numstr, bounds, white, 25);
-	texts.push_back(text);
+	int top = addBetText(gameController, dealerHand, height, currentBet);
 
 	top += margin + BALANCE_HEIGHT;
 
@@ -55,14 +49,48 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	
 	draw();
 }
-void GameView::addHandValueText(int top, int height, Hand hand) {
-	int handValue = hand.getHandValue();
-	char handText[30]; // enough to hold all numbers up to 64-bits
-	if (handValue <= 21) {
-		sprintf_s(handText, "Hand value: %d", handValue);
+int GameView::addBetText(GameController* gameController, Hand dealerHand, int height, int currentBet) {
+	int top = margin * 2 + height;
+	SDL_Rect bounds = { 0,top,screen->w, BALANCE_HEIGHT };
+	SDL_Color white = { 255, 255,255, 255 };
+	char numstr[50];
+	if (dealerHand.shouldShowHandValue()) {
+		if (dealerHand.getHandValue() > 21) {
+			sprintf_s(numstr, "Dealer Busted, Bet: %d", currentBet);
+		}
+		else {
+			sprintf_s(numstr, "Dealer hand value: %d, Bet: %d", dealerHand.getHandValue(), currentBet);
+		}
 	}
 	else {
+		sprintf_s(numstr, "Bet: %d", currentBet);
+	}
+	Text text(numstr, bounds, white, 25);
+	texts.push_back(text);
+	return top;
+
+}
+void GameView::addHandValueText(int top, int height, Hand hand) {
+	int handValue = hand.getHandValue();
+	char handText[30];
+	
+	switch (hand.getHandStatus()) {
+	case HAND_BUSTED:
 		sprintf_s(handText, "Busted: %d", handValue);
+		break;
+	case HAND_LOST:
+		sprintf_s(handText, "You lost, Hand value: %d", handValue);
+		break;
+	case HAND_PUSH:
+		sprintf_s(handText, "Push, Hand value: %d", handValue);
+		break;
+	case HAND_WON:
+		sprintf_s(handText, "You won, Hand value: %d", handValue);
+		break;
+	case HAND_DRAWING_CARDS:
+	default:
+		sprintf_s(handText, "Hand value: %d", handValue);
+
 	}
 
 	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };

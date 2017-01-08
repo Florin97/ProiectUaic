@@ -6,21 +6,12 @@ Hand::Hand()
 {
 
 }
-char* Hand::getHandText() {
-	int handValue = getHandValue();
-	char numstr[30]; // enough to hold all numbers up to 64-bits
-	if (handValue <= 21) {
-		sprintf_s(numstr, "Hand value: %d", handValue);
-	}
-	else {
-		sprintf_s(numstr, "Busted: %d", handValue);
-	}
-	return numstr;
-}
+
 void Hand::makeAllCardsVisible() {
 	for (int i = 0; i < cards.size(); i++) {
 		cards.at(i).setCardVisible();
 	}
+	showHandValue = true;
 }
 void Hand::computeHandValue() {
 	int handValue = 0;
@@ -37,7 +28,24 @@ void Hand::computeHandValue() {
 		handValue -= 10;
 		nrOfAces--;
 	}
+	if (handValue > 21) {
+		setHandStatus(HAND_BUSTED);
+	}
+
 	this->handValue = handValue;
+}
+void Hand::setStatusFromDealerHand(Hand dealerHand) {
+	if (handStatus == HAND_BUSTED) {
+		return;
+	}
+	if (dealerHand.getHandStatus() == HAND_BUSTED || dealerHand.getHandValue() < handValue) {
+		setHandStatus(HAND_WON);
+	}else if (dealerHand.getHandValue() == handValue) {
+		setHandStatus(HAND_PUSH);
+	}else{
+		setHandStatus(HAND_LOST);
+	}
+	
 }
 int Hand::getHandValue() {
 	return handValue;
@@ -51,7 +59,18 @@ vector<CardModel> Hand::getCards() {
 }
 void Hand::clearHand() {
 	handValue = 0;
+	handStatus = HAND_DRAWING_CARDS;
+	showHandValue = false;
 	cards.clear();
+}
+int Hand::getHandStatus() {
+	return handStatus;
+}
+void Hand::setHandStatus(int handStatus) {
+	this->handStatus = handStatus;
+}
+bool Hand::shouldShowHandValue() {
+	return showHandValue;
 }
 Hand::~Hand()
 {

@@ -1,2 +1,4 @@
-﻿  ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
+﻿  Hand.cpp
+d:\proiect_ip\proiectip\proiectip\hand.cpp(11): warning C4018: '<': signed/unsigned mismatch
+  ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.pdb (Partial PDB)

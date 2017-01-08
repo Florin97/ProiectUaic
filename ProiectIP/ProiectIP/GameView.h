@@ -35,6 +35,7 @@ private:
 	void addBalanceText(int balance);
 	void addButtons(GameController* gameController);
 	void addHandValueText(int top, int height, Hand hand);
+	int addBetText(GameController* gameController, Hand dealerHand, int height, int currentBet);
 public:
 	GameView(SDL_Window *window, SDL_Surface *surface);
 	~GameView();
