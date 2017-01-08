@@ -11,35 +11,35 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
 	Uint32 backColor = BUTTON_BROWN;
 
-	int width = screen->w / 12;
-	int height = screen->h / 5;
+	int cardWidth = screen->w / 12;
+	int cardHeight = screen->h / 5;
 
 	int left = margin;
 	vector<CardModel> dealerCards = dealerHand.getCards();
 	for (vector<CardModel>::const_iterator it = dealerCards.begin(); it != dealerCards.end(); ++it) {
 		CardModel cardModel = *it;
-		Card card(cardModel.getCard(), frontColor, backColor, left, margin, width, height, cardModel.isCardVisible());
+		Card card(cardModel.getCard(), frontColor, backColor, left, margin, cardWidth, cardHeight, cardModel.isCardVisible());
 		cards.push_back(card);
 
-		left += width + margin;
+		left += cardWidth + margin;
 	}
 
 
 	addBalanceText(balance);
 
-	int top = addDealerHandInfo(gameController, dealerHand, height);
+	int top = addDealerHandInfo(gameController, dealerHand, cardHeight);
 
-	top += margin + BALANCE_HEIGHT;
+	top += margin + TEXT_HEIGHT;
 
 	left = margin;
 	vector<CardModel> playerCards = playerHand.getCards();
 	for (vector<CardModel>::const_iterator it = playerCards.begin(); it != playerCards.end(); ++it) {
 		CardModel cardModel = *it;
 
-		Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, width, height);
+		Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, cardWidth, cardHeight);
 		cards.push_back(playerCard1);
 
-		left += width + margin;
+		left += cardWidth + margin;
 	}
 	
 
@@ -51,26 +51,26 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 		for (vector<CardModel>::const_iterator it = playerCards.begin(); it != playerCards.end(); ++it) {
 			CardModel cardModel = *it;
 
-			Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, width, height);
+			Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, cardWidth, cardHeight);
 			cards.push_back(playerCard1);
 
-			left += width + margin;
+			left += cardWidth + margin;
 		}
 	}
 
-	addHandValueText(top, height,playerHand, playerSecondHand, currentHand);
+	addHandValueText(top, cardHeight,playerHand, playerSecondHand, currentHand);
 
 	addButtons(gameController);
 	
 	draw();
 }
-int GameView::addDealerHandInfo(GameController* gameController, Hand dealerHand, int height) {
-	int top = margin * 2 + height;
-	SDL_Rect bounds = { 0,top,screen->w, BALANCE_HEIGHT };
+int GameView::addDealerHandInfo(GameController* gameController, Hand dealerHand, int cardHeight) {
+	int top = margin * 2 + cardHeight;
+	SDL_Rect bounds = { 0,top,screen->w, TEXT_HEIGHT };
 	SDL_Color white = { 255, 255,255, 255 };
 	char numstr[50];
 	if (dealerHand.shouldShowHandValue()) {
-		if (dealerHand.getHandValue() > 21) {
+		if (dealerHand.isHandBusted()) {
 			sprintf_s(numstr, "Dealer Busted");
 		}
 		else {
@@ -85,7 +85,7 @@ int GameView::addDealerHandInfo(GameController* gameController, Hand dealerHand,
 	return top;
 
 }
-void GameView::addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand, Hand *currentHand) {
+void GameView::addHandValueText(int top, int cardHeight, Hand hand, Hand *playerSecondHand, Hand *currentHand) {
 
 	char handText[200];
 	
@@ -94,7 +94,7 @@ void GameView::addHandValueText(int top, int height, Hand hand, Hand *playerSeco
 	if (playerSecondHand != NULL) {
 		sprintf_s(handText, "%s, || %s%sSecond Hand value: %d, (Bet: %d)", handText, playerSecondHand->getCurrentHandMarker(currentHand), playerSecondHand->getStatusText(), playerSecondHand->getHandValue(), playerSecondHand->getBet());
 	}
-	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };
+	SDL_Rect handValueBounds = { 0,top + cardHeight,  screen->w, TEXT_HEIGHT };
 	
 	SDL_Color white = { 255, 255,255, 255 };
 	Text handValueText(handText, handValueBounds, white, 25);
@@ -105,7 +105,7 @@ void GameView::addButtons(GameController* gameController) {
 	vector<ButtonModel> buttonModels = gameController->getButtons();
 	
 	int buttonWidth = (screen->w - (MAX_BUTTONS + 1)*margin) / MAX_BUTTONS;
-	int top = screen->h - BUTTON_HEIGHT - margin * 2 - BALANCE_HEIGHT;
+	int top = screen->h - BUTTON_HEIGHT - margin * 2 - TEXT_HEIGHT;
 
 	int nrOfNotDisplayedButtons = MAX_BUTTONS - buttonModels.size();
 	int left = (nrOfNotDisplayedButtons*(buttonWidth+margin))/2;
@@ -121,7 +121,7 @@ void GameView::addButtons(GameController* gameController) {
 
 	}
 }
-void GameView::displayStartGameMode(GameController* gameController, int balance) {
+void GameView::displayChooseBetMode(GameController* gameController, int balance) {
 	
 	clearShapes();
 	
@@ -130,7 +130,7 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 	int nrButtons = 5;
 	
 	int buttonWidth = (screen->w - (nrButtons + 1)*margin) / nrButtons;
-	int top = screen->h - BUTTON_HEIGHT - margin*2 - BALANCE_HEIGHT;
+	int top = screen->h - BUTTON_HEIGHT - margin*2 - TEXT_HEIGHT;
 	char *buttonTexts[] = { "1","5","25","100","DEAL" };
 	
 	for (int i = 0; i < nrButtons; i++) {
@@ -166,10 +166,10 @@ void GameView::displayStartGameMode(GameController* gameController, int balance)
 	draw();
 }
 void GameView::addBalanceText(int balance) {
-	SDL_Rect bounds = { 0,screen->h - BALANCE_HEIGHT - margin,screen->w, BALANCE_HEIGHT };
+	SDL_Rect bounds = { 0,screen->h - TEXT_HEIGHT - margin,screen->w, TEXT_HEIGHT };
 	SDL_Color white = { 255, 255,255, 255 };
 	char numstr[21]; // enough to hold all numbers up to 64-bits
-	sprintf_s(numstr, "Balance:%d", balance);
+	sprintf_s(numstr, "Balance: %d", balance);
 	Text text(numstr, bounds, white, 25);
 	texts.push_back(text);
 

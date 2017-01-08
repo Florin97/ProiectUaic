@@ -11,16 +11,16 @@ Card::Card(const char *cardText, Uint32 frontColor, Uint32 backColor, int x, int
 	createCardImage();
 	
 
-	rect = image->clip_rect;
+	//rect = image->clip_rect;
 
 	rect.x = x;
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
 
-	SDL_Color textColor = { 0, 0,0, 255 };
+	SDL_Color blackColor = { 0, 0, 0, 255 };
 
-	text = new Text(cardText, rect, textColor);
+	text = new Text(cardText, rect, blackColor);
 }
 void Card::setVisible(bool isVisible) {
 	this->isVisible = isVisible;

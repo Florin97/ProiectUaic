@@ -5,7 +5,7 @@ GameController::GameController(GameView *gameView)
 {
 	this->gameView = gameView;
 
-	gameView->displayStartGameMode(this, balance);
+	gameView->displayChooseBetMode(this, balance);
 }
 bool GameController::shouldShowGameResult() {
 	return mode == MODE_START_NEW_GAME;
@@ -147,7 +147,7 @@ void GameController::switchToChooseBet() {
 	dealerHand.clearHand();
 	playerHand.clearHand();
 
-	gameView->displayStartGameMode(this, balance);
+	gameView->displayChooseBetMode(this, balance);
 }
 void GameController::onClickSplit() {
 	

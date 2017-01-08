@@ -16,9 +16,7 @@ bool Hand::isHandBusted() {
 	return handStatus == HAND_BUSTED;
 }
 char* Hand::getCurrentHandMarker(Hand *currentHand) {
-	if (currentHand == NULL) {
-		return "";
-	}
+
 	if (this == currentHand) {
 		return "> ";
 	}
