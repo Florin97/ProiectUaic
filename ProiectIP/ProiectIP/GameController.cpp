@@ -80,11 +80,19 @@ vector<ButtonModel> GameController::getButtons() {
 		return buttons;
 	}
 
+	int nrButtons;
 	//TODO add buttons
 	char *buttonTexts[] = { "SPLIT","HIT","STAND","DOUBLE" };
 	int tags[] = { TAG_SPLIT, TAG_HIT, TAG_STAND, TAG_DOUBLE };
 	for (int i = 0; i < 4; i++) {
-		ButtonModel button(buttonTexts[i], tags[i]);
+		int tag = tags[i];
+		if (tag == TAG_DOUBLE && !(this->balance >= this->currentBet)) {
+			continue;
+		}
+		if (tag == TAG_SPLIT && !this->playerHand.handCanBeSplitted()) {
+			continue;
+		}
+		ButtonModel button(buttonTexts[i], tag);
 		buttons.push_back(button);
 	}
 	return buttons;

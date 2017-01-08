@@ -47,6 +47,15 @@ void Hand::setStatusFromDealerHand(Hand dealerHand) {
 	}
 	
 }
+bool Hand::handCanBeSplitted() {
+	if (cards.size() != 2) {
+		return false;
+	}
+	CardModel card1 = cards.at(0);
+	CardModel card2 = cards.at(1);
+
+	return card1.getCardValue() == card2.getCardValue();
+}
 int Hand::getHandValue() {
 	return handValue;
 }

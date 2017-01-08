@@ -28,6 +28,7 @@ public:
 	int getHandStatus();
 	void setHandStatus(int handStatus);
 	void setStatusFromDealerHand(Hand dealerHand);
+	bool handCanBeSplitted();
 	Hand();
 	~Hand();
 };
