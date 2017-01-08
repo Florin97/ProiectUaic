@@ -5,7 +5,7 @@ GameView::GameView(SDL_Window *window, SDL_Surface *surface)
 	this->window = window;
 	this->screen = surface;
 }
-void GameView::displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand, Hand *playerSecondHand) {
+void GameView::displayGameInProgressMode(GameController* gameController, int balance, Hand dealerHand, Hand playerHand, Hand *playerSecondHand, Hand* currentHand) {
 	clearShapes();
 	
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
@@ -27,7 +27,7 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 
 	addBalanceText(balance);
 
-	int top = addBetText(gameController, dealerHand, height, currentBet);
+	int top = addDealerHandInfo(gameController, dealerHand, height);
 
 	top += margin + BALANCE_HEIGHT;
 
@@ -58,41 +58,41 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 		}
 	}
 
-	addHandValueText(top, height,playerHand, playerSecondHand);
+	addHandValueText(top, height,playerHand, playerSecondHand, currentHand);
 
 	addButtons(gameController);
 	
 	draw();
 }
-int GameView::addBetText(GameController* gameController, Hand dealerHand, int height, int currentBet) {
+int GameView::addDealerHandInfo(GameController* gameController, Hand dealerHand, int height) {
 	int top = margin * 2 + height;
 	SDL_Rect bounds = { 0,top,screen->w, BALANCE_HEIGHT };
 	SDL_Color white = { 255, 255,255, 255 };
 	char numstr[50];
 	if (dealerHand.shouldShowHandValue()) {
 		if (dealerHand.getHandValue() > 21) {
-			sprintf_s(numstr, "Dealer Busted, Bet: %d", currentBet);
+			sprintf_s(numstr, "Dealer Busted");
 		}
 		else {
-			sprintf_s(numstr, "Dealer hand value: %d, Bet: %d", dealerHand.getHandValue(), currentBet);
+			sprintf_s(numstr, "Dealer hand value: %d", dealerHand.getHandValue());
 		}
+
+		Text text(numstr, bounds, white, 25);
+		texts.push_back(text);
 	}
-	else {
-		sprintf_s(numstr, "Bet: %d", currentBet);
-	}
-	Text text(numstr, bounds, white, 25);
-	texts.push_back(text);
+
+
 	return top;
 
 }
-void GameView::addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand) {
+void GameView::addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand, Hand *currentHand) {
 
 	char handText[200];
 	
-	sprintf_s(handText, "%sHand value: %d, (Bet: %d)", hand.getStatusText(), hand.getHandValue(), hand.getBet());
+	sprintf_s(handText, "%s%sHand value: %d, (Bet: %d)", hand.getCurrentHandMarker(currentHand),hand.getStatusText(), hand.getHandValue(), hand.getBet());
 
 	if (playerSecondHand != NULL) {
-		sprintf_s(handText, "%s, || %sSecond Hand value: %d, (Bet: %d)", handText, playerSecondHand->getStatusText(), playerSecondHand->getHandValue(), playerSecondHand->getBet());
+		sprintf_s(handText, "%s, || %s%sSecond Hand value: %d, (Bet: %d)", handText, playerSecondHand->getCurrentHandMarker(currentHand), playerSecondHand->getStatusText(), playerSecondHand->getHandValue(), playerSecondHand->getBet());
 	}
 	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };
 	

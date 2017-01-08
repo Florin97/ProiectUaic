@@ -31,11 +31,12 @@ public:
 	void setHandStatus(int handStatus);
 	void setStatusFromDealerHand(Hand dealerHand);
 	bool handCanBeSplitted();
-	CardModel removeFirstCard();
+	CardModel removeSecondCard();
 	int getBet();
 	void setBet(int bet);
 	bool isHandBusted();
 	char *getStatusText();
+	char *getCurrentHandMarker(Hand *currentHand);
 
 	Hand();
 	~Hand();

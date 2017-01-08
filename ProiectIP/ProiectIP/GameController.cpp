@@ -71,7 +71,7 @@ void GameController::onClickDeal() {
 	redrawGameInProgress();
 }
 void GameController::redrawGameInProgress() {
-	gameView->displayGameInProgressMode(this, balance, currentHand->getBet(), dealerHand, playerHand, playerSecondHand);
+	gameView->displayGameInProgressMode(this, balance, dealerHand, playerHand, playerSecondHand, currentHand);
 }
 vector<ButtonModel> GameController::getButtons() {
 	vector<ButtonModel> buttons;
@@ -147,7 +147,7 @@ void GameController::switchToChooseBet() {
 void GameController::onClickSplit() {
 	
 	this->playerSecondHand = new Hand();
-	this->playerSecondHand->addCard(this->playerHand.removeFirstCard());
+	this->playerSecondHand->addCard(this->playerHand.removeSecondCard());
 
 	this->playerHand.addCard(this->deck->drawCard());
 	this->playerSecondHand->addCard(this->deck->drawCard());

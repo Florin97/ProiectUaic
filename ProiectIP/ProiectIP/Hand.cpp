@@ -15,6 +15,15 @@ void Hand::setBet(int bet) {
 bool Hand::isHandBusted() {
 	return handStatus == HAND_BUSTED;
 }
+char* Hand::getCurrentHandMarker(Hand *currentHand) {
+	if (currentHand == NULL) {
+		return "";
+	}
+	if (this == currentHand) {
+		return "> ";
+	}
+	return "";
+}
 char *Hand::getStatusText() {
 	switch (handStatus) {
 	case HAND_BUSTED:
@@ -31,7 +40,7 @@ char *Hand::getStatusText() {
 
 	}
 }
-CardModel Hand::removeFirstCard() {
+CardModel Hand::removeSecondCard() {
 	CardModel card = cards.at(1);
 	cards.pop_back();
 	return card;

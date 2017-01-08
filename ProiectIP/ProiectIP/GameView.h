@@ -34,8 +34,8 @@ private:
 	void clearShapes();
 	void addBalanceText(int balance);
 	void addButtons(GameController* gameController);
-	void addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand);
-	int addBetText(GameController* gameController, Hand dealerHand, int height, int currentBet);
+	void addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand, Hand *currentHand);
+	int addDealerHandInfo(GameController* gameController, Hand dealerHand, int height);
 public:
 	GameView(SDL_Window *window, SDL_Surface *surface);
 	~GameView();
@@ -43,7 +43,7 @@ public:
 	void draw();
 	void destroy();
 	void displayStartGameMode(GameController* gameController, int balance);
-	void displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand, Hand *playerSecondHand);
+	void displayGameInProgressMode(GameController* gameController, int balance, Hand dealerHand, Hand playerHand, Hand *playerSecondHand, Hand *currentHand);
 	void handleEvent(SDL_Event event);
 	void checkButton(int buttonIndex);
 };
