@@ -132,7 +132,7 @@ void GameController::switchToChooseBet() {
 void GameController::onClickSplit() {
 
 }
-void GameController::onClickHit() {
+void GameController::drawCardForPlayer() {
 	playerHand.addCard(this->deck->drawCard());
 
 	redrawGameInProgress();
@@ -141,7 +141,9 @@ void GameController::onClickHit() {
 		mode = MODE_START_NEW_GAME;
 		redrawGameInProgress();
 	}
-	
+}
+void GameController::onClickHit() {
+	drawCardForPlayer();
 }
 void GameController::onClickStartNewGame() {
 	switchToChooseBet();
@@ -150,7 +152,13 @@ void GameController::onClickStand() {
 	executeDealerALgorithm();
 }
 void GameController::onClickDouble() {
+	this->balance -= currentBet;
+	currentBet += currentBet;
+	drawCardForPlayer();
 
+	if (mode != MODE_START_NEW_GAME) {
+		executeDealerALgorithm();
+	}
 }
 
 GameController::~GameController()

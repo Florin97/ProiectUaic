@@ -33,6 +33,7 @@ private:
 	Hand dealerHand;
 	Hand playerHand;
 	int mode = MODE_CHOOSE_BET;
+	void drawCardForPlayer();
 public:
 	GameController(GameView *gameView);
 	~GameController();

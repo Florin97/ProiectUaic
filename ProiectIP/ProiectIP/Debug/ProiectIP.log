@@ -1,6 +1,4 @@
-﻿  Hand.cpp
-d:\proiect_ip\proiectip\proiectip\hand.cpp(11): warning C4018: '<': signed/unsigned mismatch
-  GameController.cpp
+﻿  GameController.cpp
 d:\proiect_ip\proiectip\proiectip\gamecontroller.cpp(83): warning C4101: 'nrButtons': unreferenced local variable
   Generating Code...
   Skipping... (no relevant changes detected)
