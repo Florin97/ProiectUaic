@@ -39,6 +39,7 @@ private:
 	bool shouldDisplayStartNewGame();
 	void switchToNextHand();
 	void updateBalanceWithHandValue(Hand* hand);
+	bool allHandsBusted();
 public:
 	GameController(GameView *gameView);
 	~GameController();

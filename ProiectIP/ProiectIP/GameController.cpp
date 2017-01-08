@@ -57,15 +57,15 @@ void GameController::onClickDeal() {
 	CardModel firstCard = this->deck->drawCard();
 	firstCard.setCardNotVisible();
 
-	playerHand.addCard(this->deck->drawCard(0));
-	playerHand.addCard(this->deck->drawCard(0));
+	//playerHand.addCard(this->deck->drawCard(0));
+	//playerHand.addCard(this->deck->drawCard(0));
 	playerHand.setBet(initialBet);
 
 	dealerHand.addCard(firstCard);
 	dealerHand.addCard(this->deck->drawCard());
 
-	//playerHand.addCard(this->deck->drawCard());
-	//playerHand.addCard(this->deck->drawCard());
+	playerHand.addCard(this->deck->drawCard());
+	playerHand.addCard(this->deck->drawCard());
 
 	currentHand = &playerHand;
 	redrawGameInProgress();
@@ -105,6 +105,11 @@ vector<ButtonModel> GameController::getButtons() {
 	return buttons;
 }
 void GameController::executeDealerAlgorithm() {
+	if (allHandsBusted()) {
+		mode = MODE_START_NEW_GAME;
+		redrawGameInProgress();
+		return;
+	}
 	mode = MODE_DEALER_TURN;
 
 	dealerHand.makeAllCardsVisible();
@@ -167,6 +172,12 @@ bool GameController::shouldDisplayStartNewGame() {
 	}
 	return false;
 }
+bool GameController::allHandsBusted() {
+	if (playerHand.isHandBusted()) {
+		return playerSecondHand == NULL || playerSecondHand->isHandBusted();
+	} 
+	return false;
+}
 void GameController::switchToNextHand() {
 	if (currentHand == &playerHand && playerSecondHand != NULL) {
 		currentHand = playerSecondHand;
@@ -187,6 +198,9 @@ void GameController::drawCardForPlayer() {
 }
 void GameController::onClickHit() {
 	drawCardForPlayer();
+	if (currentHand->isHandBusted()) {
+		switchToNextHand();
+	}
 }
 void GameController::onClickStartNewGame() {
 	switchToChooseBet();

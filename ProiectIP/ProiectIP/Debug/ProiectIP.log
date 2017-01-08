@@ -1,9 +1,4 @@
-﻿  GameView.cpp
-d:\proiect_ip\proiectip\proiectip\gameview.cpp(113): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  main.cpp
-  GameController.cpp
-  Button.cpp
+﻿  GameController.cpp
+d:\proiect_ip\proiectip\proiectip\gamecontroller.cpp(89): warning C4101: 'nrButtons': unreferenced local variable
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.pdb (Partial PDB)
