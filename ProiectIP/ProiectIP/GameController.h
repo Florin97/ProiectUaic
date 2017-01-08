@@ -40,7 +40,7 @@ public:
 
 	void redrawGameInProgress();
 	void onClick(int tag, int buttonId);
-	void executeDealerALgorithm();
+	void executeDealerAlgorithm();
 	void switchToChooseBet();
 	bool shouldShowGameResult();
 

@@ -97,7 +97,7 @@ vector<ButtonModel> GameController::getButtons() {
 	}
 	return buttons;
 }
-void GameController::executeDealerALgorithm() {
+void GameController::executeDealerAlgorithm() {
 	mode = MODE_DEALER_TURN;
 
 	dealerHand.makeAllCardsVisible();
@@ -149,7 +149,7 @@ void GameController::onClickStartNewGame() {
 	switchToChooseBet();
 }
 void GameController::onClickStand() {
-	executeDealerALgorithm();
+	executeDealerAlgorithm();
 }
 void GameController::onClickDouble() {
 	this->balance -= currentBet;
@@ -157,7 +157,7 @@ void GameController::onClickDouble() {
 	drawCardForPlayer();
 
 	if (mode != MODE_START_NEW_GAME) {
-		executeDealerALgorithm();
+		executeDealerAlgorithm();
 	}
 }
 
