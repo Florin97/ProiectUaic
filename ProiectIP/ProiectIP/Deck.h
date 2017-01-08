@@ -10,6 +10,8 @@ private:
 	int availableCards[NR_OF_CARDS] = {4,4,4,4,4,4,4,4,4,4,4,4,4};
 public:
 	CardModel drawCard();
+	//only for testing
+	CardModel drawCard(int cardPos);
 	Deck();
 	~Deck();
 };

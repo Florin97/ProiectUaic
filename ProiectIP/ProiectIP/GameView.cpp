@@ -5,7 +5,7 @@ GameView::GameView(SDL_Window *window, SDL_Surface *surface)
 	this->window = window;
 	this->screen = surface;
 }
-void GameView::displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand) {
+void GameView::displayGameInProgressMode(GameController* gameController, int balance, int currentBet, Hand dealerHand, Hand playerHand, Hand *playerSecondHand) {
 	clearShapes();
 	
 	Uint32 frontColor = SDL_MapRGB(screen->format, 255, 255, 255);
@@ -43,7 +43,22 @@ void GameView::displayGameInProgressMode(GameController* gameController, int bal
 	}
 	
 
-	addHandValueText(top, height,playerHand);
+	//draw second hand
+	if (playerSecondHand != NULL) {
+		left += margin * 2;
+
+		playerCards = playerSecondHand->getCards();
+		for (vector<CardModel>::const_iterator it = playerCards.begin(); it != playerCards.end(); ++it) {
+			CardModel cardModel = *it;
+
+			Card playerCard1(cardModel.getCard(), frontColor, backColor, left, top, width, height);
+			cards.push_back(playerCard1);
+
+			left += width + margin;
+		}
+	}
+
+	addHandValueText(top, height,playerHand, playerSecondHand);
 
 	addButtons(gameController);
 	
@@ -70,29 +85,15 @@ int GameView::addBetText(GameController* gameController, Hand dealerHand, int he
 	return top;
 
 }
-void GameView::addHandValueText(int top, int height, Hand hand) {
-	int handValue = hand.getHandValue();
-	char handText[30];
+void GameView::addHandValueText(int top, int height, Hand hand, Hand *playerSecondHand) {
+
+	char handText[200];
 	
-	switch (hand.getHandStatus()) {
-	case HAND_BUSTED:
-		sprintf_s(handText, "Busted: %d", handValue);
-		break;
-	case HAND_LOST:
-		sprintf_s(handText, "You lost, Hand value: %d", handValue);
-		break;
-	case HAND_PUSH:
-		sprintf_s(handText, "Push, Hand value: %d", handValue);
-		break;
-	case HAND_WON:
-		sprintf_s(handText, "You won, Hand value: %d", handValue);
-		break;
-	case HAND_DRAWING_CARDS:
-	default:
-		sprintf_s(handText, "Hand value: %d", handValue);
+	sprintf_s(handText, "%sHand value: %d, (Bet: %d)", hand.getStatusText(), hand.getHandValue(), hand.getBet());
 
+	if (playerSecondHand != NULL) {
+		sprintf_s(handText, "%s, || %sSecond Hand value: %d, (Bet: %d)", handText, playerSecondHand->getStatusText(), playerSecondHand->getHandValue(), playerSecondHand->getBet());
 	}
-
 	SDL_Rect handValueBounds = { 0,top + height,  screen->w, BALANCE_HEIGHT };
 	
 	SDL_Color white = { 255, 255,255, 255 };

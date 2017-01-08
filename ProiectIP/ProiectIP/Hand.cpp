@@ -6,7 +6,36 @@ Hand::Hand()
 {
 
 }
+int Hand::getBet() {
+	return this->bet;
+}
+void Hand::setBet(int bet) {
+	this->bet = bet;
+}
+bool Hand::isHandBusted() {
+	return handStatus == HAND_BUSTED;
+}
+char *Hand::getStatusText() {
+	switch (handStatus) {
+	case HAND_BUSTED:
+		return "Hand Busted, ";
+	case HAND_LOST:
+		return "Hand lost, ";
+	case HAND_PUSH:
+		return "Push, ";
+	case HAND_WON:
+		return "Hand won, ";
+	case HAND_DRAWING_CARDS:
+	default:
+		return "";
 
+	}
+}
+CardModel Hand::removeFirstCard() {
+	CardModel card = cards.at(1);
+	cards.pop_back();
+	return card;
+}
 void Hand::makeAllCardsVisible() {
 	for (int i = 0; i < cards.size(); i++) {
 		cards.at(i).setCardVisible();

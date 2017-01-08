@@ -28,12 +28,17 @@ private:
 	GameView *gameView;
 	int balance = 1000;
 	int betValues[4] = {1, 5, 25, 100};
-	int currentBet = 5;
 	Deck *deck;
 	Hand dealerHand;
 	Hand playerHand;
+	Hand *playerSecondHand;
+	Hand *currentHand;
+	int initialBet;
 	int mode = MODE_CHOOSE_BET;
 	void drawCardForPlayer();
+	bool shouldDisplayStartNewGame();
+	void switchToNextHand();
+	void updateBalanceWithHandValue(Hand* hand);
 public:
 	GameController(GameView *gameView);
 	~GameController();

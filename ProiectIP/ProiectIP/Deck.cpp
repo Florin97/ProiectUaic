@@ -17,7 +17,11 @@ CardModel Deck::drawCard() {
 	return cardModel;
 
 }
-
+CardModel Deck::drawCard(int cardPos) {
+	availableCards[cardPos]--;
+	CardModel cardModel(cards[cardPos], true, values[cardPos]);
+	return cardModel;
+}
 Deck::~Deck()
 {
 }

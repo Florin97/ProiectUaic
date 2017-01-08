@@ -18,6 +18,8 @@ private:
 	int handStatus = HAND_DRAWING_CARDS;
 	bool showHandValue;
 	void computeHandValue();
+	int bet = 5;
+
 public:
 	vector<CardModel> getCards();
 	void addCard(CardModel cardModel);
@@ -29,6 +31,12 @@ public:
 	void setHandStatus(int handStatus);
 	void setStatusFromDealerHand(Hand dealerHand);
 	bool handCanBeSplitted();
+	CardModel removeFirstCard();
+	int getBet();
+	void setBet(int bet);
+	bool isHandBusted();
+	char *getStatusText();
+
 	Hand();
 	~Hand();
 };
