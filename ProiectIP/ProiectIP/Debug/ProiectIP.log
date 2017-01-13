@@ -1,18 +1,4 @@
-﻿  Text.cpp
-  Shape.cpp
-  main.cpp
-  Hand.cpp
-d:\proiect_ip\proiectip\proiectip\hand.cpp(47): warning C4018: '<': signed/unsigned mismatch
-  GameController.cpp
-d:\proiect_ip\proiectip\proiectip\gamecontroller.cpp(89): warning C4101: 'nrButtons': unreferenced local variable
-  GameView.cpp
-d:\proiect_ip\proiectip\proiectip\gameview.cpp(113): warning C4018: '<': signed/unsigned mismatch
-  Deck.cpp
-d:\proiect_ip\proiectip\proiectip\deck.cpp(8): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  CardModel.cpp
-  Card.cpp
-  ButtonModel.cpp
-  Button.cpp
-  Generating Code...
+﻿  GameController.cpp
+d:\proiect_ip\proiectip\proiectip\gamecontroller.cpp(92): warning C4101: 'nrButtons': unreferenced local variable
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.exe
   ProiectIP.vcxproj -> D:\proiect_ip\ProiectIP\Debug\ProiectIP.pdb (Partial PDB)

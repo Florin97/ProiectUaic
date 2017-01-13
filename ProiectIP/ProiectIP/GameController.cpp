@@ -5,7 +5,9 @@ GameController::GameController(GameView *gameView)
 {
 	this->gameView = gameView;
 
-	gameView->displayChooseBetMode(this, balance);
+	initialBet = 5;
+
+	gameView->displayChooseBetMode(this, balance);//display first screen
 }
 bool GameController::shouldShowGameResult() {
 	return mode == MODE_START_NEW_GAME;
@@ -40,7 +42,7 @@ void GameController::onClick(int tag, int buttonIndex) {
 }
 
 void GameController::onClickBetPrice(int buttonIndex) {
-	initialBet = betValues[buttonIndex];
+	initialBet = betValues[buttonIndex]; //initialBet += betValues[buttonIndex]; if i have time add buttons for reset bet
 	gameView->checkButton(buttonIndex);
 }
 void GameController::onClickDeal() {
@@ -56,13 +58,13 @@ void GameController::onClickDeal() {
 
 	CardModel firstCard = this->deck->drawCard();
 	firstCard.setCardNotVisible();
-
-	//playerHand.addCard(this->deck->drawCard(0));
-	//playerHand.addCard(this->deck->drawCard(0));
-	playerHand.setBet(initialBet);
+	
+	
 
 	dealerHand.addCard(firstCard);
 	dealerHand.addCard(this->deck->drawCard());
+
+	playerHand.setBet(initialBet);
 
 	playerHand.addCard(this->deck->drawCard());
 	playerHand.addCard(this->deck->drawCard());
@@ -83,6 +85,7 @@ vector<ButtonModel> GameController::getButtons() {
 	if (mode == MODE_START_NEW_GAME) {
 		ButtonModel startNewGame("START", TAG_START_NEW_GAME);
 		buttons.push_back(startNewGame);
+		initialBet = 5;
 		return buttons;
 	}
 

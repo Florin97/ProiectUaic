@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-
+//constants for hand result
 #define HAND_WON 1
 #define HAND_LOST 2
 #define HAND_BUSTED 3
@@ -13,15 +13,15 @@ using namespace std;
 class Hand
 {
 private:
-	vector<CardModel> cards;
-	int handValue;
+	vector<CardModel> cards; //creat vector 
+	int handValue; 
 	int handStatus = HAND_DRAWING_CARDS;
-	bool showHandValue;
-	void computeHandValue();
+	bool showHandValue; 
+	void computeHandValue(); 
 	int bet = 5;
 
 public:
-	vector<CardModel> getCards();
+	vector<CardModel> getCards(); //return list of cards
 	void addCard(CardModel cardModel);
 	int getHandValue();
 	void makeAllCardsVisible();

@@ -6,7 +6,7 @@ Hand::Hand()
 {
 
 }
-int Hand::getBet() {
+int Hand::getBet() { 
 	return this->bet;
 }
 void Hand::setBet(int bet) {
@@ -15,14 +15,14 @@ void Hand::setBet(int bet) {
 bool Hand::isHandBusted() {
 	return handStatus == HAND_BUSTED;
 }
-char* Hand::getCurrentHandMarker(Hand *currentHand) {
+char* Hand::getCurrentHandMarker(Hand *currentHand) {//mark curent hand(for split)
 
 	if (this == currentHand) {
 		return "> ";
 	}
 	return "";
 }
-char *Hand::getStatusText() {
+char *Hand::getStatusText() { //return what text to show
 	switch (handStatus) {
 	case HAND_BUSTED:
 		return "Hand Busted, ";
@@ -38,29 +38,29 @@ char *Hand::getStatusText() {
 
 	}
 }
-CardModel Hand::removeSecondCard() {
-	CardModel card = cards.at(1);
-	cards.pop_back();
+CardModel Hand::removeSecondCard() { //for split,remove second card and return it 
+	CardModel card = cards.at(1); 
+	cards.pop_back(); //remove last card
 	return card;
 }
-void Hand::makeAllCardsVisible() {
-	for (int i = 0; i < cards.size(); i++) {
+void Hand::makeAllCardsVisible() { //for dealer 
+	for (int i = 0; i < cards.size(); i++) { 
 		cards.at(i).setCardVisible();
 	}
 	showHandValue = true;
 }
-void Hand::computeHandValue() {
+void Hand::computeHandValue() { 
 	int handValue = 0;
 	int nrOfAces = 0;
 
-	for (vector<CardModel>::const_iterator it = cards.begin(); it != cards.end(); ++it) {
+	for (vector<CardModel>::const_iterator it = cards.begin(); it != cards.end(); ++it) { //i don't know how but it works
 		CardModel cardModel = *it;
 		if (cardModel.isAce()) {
 			nrOfAces++;
 		}
 		handValue += cardModel.getCardValue();
 	}
-	while (nrOfAces > 0 && handValue > 21) {
+	while (nrOfAces > 0 && handValue > 21) { //make ace one
 		handValue -= 10;
 		nrOfAces--;
 	}
@@ -70,7 +70,7 @@ void Hand::computeHandValue() {
 
 	this->handValue = handValue;
 }
-void Hand::setStatusFromDealerHand(Hand dealerHand) {
+void Hand::setStatusFromDealerHand(Hand dealerHand) { //compare with dealer hand
 	if (handStatus == HAND_BUSTED) {
 		return;
 	}
@@ -83,7 +83,7 @@ void Hand::setStatusFromDealerHand(Hand dealerHand) {
 	}
 	
 }
-bool Hand::handCanBeSplitted() {
+bool Hand::handCanBeSplitted() { //split, i hope it works
 	if (cards.size() != 2) {
 		return false;
 	}
@@ -96,13 +96,13 @@ int Hand::getHandValue() {
 	return handValue;
 }
 void Hand::addCard(CardModel cardModel) {
-	this->cards.push_back(cardModel);
-	computeHandValue();
+	this->cards.push_back(cardModel);//add card in vector
+	computeHandValue();//recompute hand value
 }
 vector<CardModel> Hand::getCards() {
 	return this->cards;
 }
-void Hand::clearHand() {
+void Hand::clearHand() { //for new game
 	handValue = 0;
 	handStatus = HAND_DRAWING_CARDS;
 	showHandValue = false;

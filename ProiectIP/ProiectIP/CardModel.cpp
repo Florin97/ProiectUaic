@@ -2,14 +2,14 @@
 #include <string.h>
 
 
-CardModel::CardModel(char* card, bool isVisible, int cardValue)
+CardModel::CardModel(char* card, bool isVisible, int cardValue) //constructor
 {
 	this->card = card;
 	this->isVisible = isVisible;
 	this->cardValue = cardValue;
 }
 
-int CardModel::getCardValue() {
+int CardModel::getCardValue() { 
 	return this->cardValue;
 }
 void CardModel::setCardNotVisible() {

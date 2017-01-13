@@ -18,9 +18,9 @@ Card::Card(const char *cardText, Uint32 frontColor, Uint32 backColor, int x, int
 	rect.w = w;
 	rect.h = h;
 
-	SDL_Color blackColor = { 0, 0, 0, 255 };
+	SDL_Color blackColor = { 0, 0, 0, 255 };// culoare texte
 
-	text = new Text(cardText, rect, blackColor);
+	text = new Text(cardText, rect, blackColor); //obiect text
 }
 void Card::setVisible(bool isVisible) {
 	this->isVisible = isVisible;
@@ -28,26 +28,24 @@ void Card::setVisible(bool isVisible) {
 }
 
 void Card::createCardImage() {
-	image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+	image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0); //create an image
 
 	if(isVisible){
-		SDL_FillRect(image, NULL, frontColor);
+		SDL_FillRect(image, NULL, frontColor); // colorate the surface
 	}
 	else {
-		SDL_FillRect(image, NULL, backColor);
+		SDL_FillRect(image, NULL, backColor);  //same shit here
 	}
 	
 	
 }
 void Card::draw(SDL_Surface *screen) {
-	SDL_BlitSurface(image, NULL, screen, &rect);
+	SDL_BlitSurface(image, NULL, screen, &rect); //desenez imaginea
 	if (isVisible) {
-		text->draw(screen);
+		text->draw(screen); //desenex text
 	}
 }
-void Card::destroy() {
 
-}
 
 Card::~Card()
 {
